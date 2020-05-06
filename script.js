@@ -1,40 +1,60 @@
-randomNumber = Math.floor(Math.random()*9+1);
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+var score = 0;
+function increase(e){
+    score++;
+    e.target.backgroundImage = "none";
+    console.log(score);
+}
 
-window.setInterval(function() {
-    if (randomNumber == 1) {
-        document.getElementById("one").style.backgroundColor = "red";
-        $('#one').fadeIn(500).delay(500).fadeOut(500);
+async function foo() {
+    var randomNumber = Math.floor(Math.random()*9+1);
+
+    var element;
+
+    switch (randomNumber) {
+        case 1:
+            element = document.getElementById("one");
+            break;
+        case 2:
+            element = document.getElementById("two");
+            break;
+        case 3:
+            element = document.getElementById("three");
+            break;
+        case 4:
+            element = document.getElementById("four");
+            break;
+        case 5:
+            element = document.getElementById("five");
+            break;
+        case 6:
+            element = document.getElementById("six");
+            break;
+        case 7:
+            element = document.getElementById("seven");
+            break;
+        case 8:
+            element = document.getElementById("eight");
+            break;
+        case 9:
+            element = document.getElementById("nine");
+            break;
     }
-    if (randomNumber == 2) {
-        document.getElementById("two").style.backgroundColor = "red";
-        $('#two').fadeIn(500).delay(500).fadeOut(500);
+    element.style.backgroundImage = "url('mole2.jpeg')";
+    element.addEventListener('click', increase);
+    await sleep(800);
+    element.style.backgroundImage = "none";
+    element.removeEventListener('click', increase);
+}
+async function start() {
+    score = 0;
+    var endTime = new Date();
+    endTime.setSeconds(endTime.getSeconds() + 30);
+    while (new Date() < endTime ) {
+        await sleep(Math.random()*800+250);
+        foo();
     }
-    if (randomNumber == 3) {
-        document.getElementById("three").style.backgroundColor = "red";
-        $('#three').fadeIn(500).delay(500).fadeOut(500);
-    }
-    if (randomNumber == 4) {
-        document.getElementById("four").style.backgroundColor = "red";
-        $('#four').fadeIn(500).delay(500).fadeOut(500);
-    }
-    if (randomNumber == 5) {
-        document.getElementById("five").style.backgroundColor = "red";
-        $('#five').fadeIn(500).delay(500).fadeOut(500);
-    }
-    if (randomNumber == 6) {
-        document.getElementById("six").style.backgroundColor = "red";
-        $('#six').fadeIn(500).delay(500).fadeOut(500);
-    }
-    if (randomNumber == 7) {
-        document.getElementById("seven").style.backgroundColor = "red";
-        $('#seven').fadeIn(500).delay(500).fadeOut(500);
-    }
-    if (randomNumber == 8) {
-        document.getElementById("eight").style.backgroundColor = "red";
-        $('#eight').fadeIn(500).delay(500).fadeOut(500);
-    }
-    if (randomNumber == 9) {
-        document.getElementById("nine").style.backgroundColor = "red";
-        $('#nine').fadeIn(500).delay(500).fadeOut(500);
-    }
-}, 3000);
+    alert("Game Over!\nYou hit " + score + " moles.");
+}
